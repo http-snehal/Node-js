@@ -2,7 +2,7 @@ const http = require(`http`) ;
 
 function requestListener (req , res){
   console.log(req);
-  process.exit();
+  process.exit(); //stop event loop
 }
 
 const server = http.createServer(requestListener);
