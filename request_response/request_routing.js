@@ -21,6 +21,10 @@ else if(req.url === '/product'){
   res.write('</html>');
  return res.end();
 }
+
+
+
+
   res.setHeader('Content-Type', 'text/html');
   res.write('<html>');
   res.write('<head><title>This is first resp</title></head>');

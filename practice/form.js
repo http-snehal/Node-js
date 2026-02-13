@@ -1,8 +1,8 @@
-const http = require(`http`);
+
 const fs = require(`fs`);
 
-function requestListener(req , res){
-console.log(req.url , req.headers , req.method);
+const requestListener = (req , res) => {
+console.log(req.url ,  req.method);
 
 if(req.url === '/'){
   res.setHeader('Content-Type' , 'Text/html')
@@ -21,7 +21,34 @@ return res.end();
 }
 
 else if(req.url === '/submit-detail' && req.method === 'POST'){
-  fs.writeFileSync('output.text' , 'Done' );
+
+  const body = [];
+    req.on('data' , (chunk) => {
+      console.log(chunk);
+      body.push(chunk);
+    })
+
+    req.on('end' , () => {
+      const fullBody = Buffer.concat(body).toString();
+      console.log(fullBody);
+
+      const parsedBoddy = new URLSearchParams(fullBody);
+
+      // const bodyObject = {};
+
+      // for(const[key , value] of parsedBoddy){
+      //   bodyObject[key] = value;
+
+        
+      // }
+      const bodyObject = Object.fromEntries(parsedBoddy);
+      console.log(bodyObject);
+
+      fs.writeFileSync('output.text' , JSON.stringify(bodyObject));
+    })
+
+
+  
   res.statusCode = 302;
   res.setHeader('Location' , '/');
   return res.end();
@@ -31,10 +58,5 @@ else if(req.url === '/submit-detail' && req.method === 'POST'){
 
 }
 
-const server = http.createServer(requestListener);
 
-let PORT = 3003;
-
-server.listen(PORT , ()=>{
-  console.log(`the server is running on the http://localhost:${PORT}`);
-})
+module.exports = requestListener;
