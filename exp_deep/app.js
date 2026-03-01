@@ -2,6 +2,8 @@ const express = require('express');
 
 const app = express();
 
+const bodyParser = require('body-parser');
+
 app.use( (req , res , next )=>{
   console.log(req.url, req.method);
  
@@ -23,6 +25,9 @@ app.get('/', (req, res, next) => {
   res.send('<h1>Welcome to Home Page</h1>');
 });
 
+
+app.use(bodyParser.urlencoded());
+
 app.get('/Contact', (req, res, next) => {
   res.send(`
     <h1>Welcome to Contact Page</h1>
@@ -37,7 +42,10 @@ app.get('/Contact', (req, res, next) => {
     `);
 });
 
+
+
 app.post('/Contact', (req, res, next) => {
+  console.log('Form data received:', req.body);
   res.send('<h1>Form submitted successfully</h1>');
 });
 
