@@ -1,4 +1,7 @@
 const express = require('express');
+const homeRoute = require('./routes/home');
+const contactRoute = require('./routes/contact');
+const root = require('./utils/path.js')
 
 const app = express();
 
@@ -8,10 +11,10 @@ app.use( (req , res , next )=>{
   next();
 })
 
-app.use((req , res , next) =>{
-  console.log('This is the second  middleware');
-  next();
-})
+// app.use((req , res , next) =>{
+//   console.log('This is the second  middleware');
+//   next();
+// })
 
 // app.use((req , res , next) =>{
 //   console.log('This is the third  middleware');
@@ -19,27 +22,16 @@ app.use((req , res , next) =>{
   
 // })
 
-app.get('/', (req, res, next) => {
-  res.send('<h1>Welcome to Home Page</h1>');
+app.use(homeRoute);
+
+app.use(express.urlencoded());
+
+app.use(contactRoute);
+
+app.use((req, res, next) => {
+  res.status(404).sendFile(root + '/views/error.html');
 });
 
-app.get('/Contact', (req, res, next) => {
-  res.send(`
-    <h1>Welcome to Contact Page</h1>
-    <form action="/Contact" method="POST">
-      <input type="text" name="username" placeholder="Enter your name"><br>
-      <input type="email" name="email" placeholder="Enter your email"><br>
-      <input type="submit" value="Submit">
-    </form>
-    
-    
-    
-    `);
-});
-
-app.post('/Contact', (req, res, next) => {
-  res.send('<h1>Form submitted successfully</h1>');
-});
 
 const PORT = 3005;
 app.listen(PORT, () => {

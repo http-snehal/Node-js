@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const userRoute = require("./routes/userRoute");
 const hostRoute = require("./routes/hostRoute");
+const utils = require("./utils/utiils");
 
 const app = express();
 
@@ -19,7 +20,7 @@ app.use(express.urlencoded());
 app.use("/host",hostRoute);
 
 app.use((req, res, next) => {
-  res.status(404).sendFile(path.join(__dirname, 'views/error.html'));
+  res.status(404).sendFile(path.join(utils, 'views/error.html'));
 });
 
 const PORT = 3006;

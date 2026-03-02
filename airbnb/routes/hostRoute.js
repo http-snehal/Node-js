@@ -1,13 +1,15 @@
 const path = require("path");
 const express = require("express");
 
+const rootDir = require("../utils/utiils");
+
 
 const hostRoute = express.Router();
 
 
 hostRoute.get('/add-home', (req, res, next) => {
 
-  res.sendFile(path.join(__dirname, '../views/addHome.html'));
+  res.sendFile(path.join(rootDir, 'views/addHome.html'));
 
 });
    
@@ -15,7 +17,7 @@ hostRoute.get('/add-home', (req, res, next) => {
 
 hostRoute.post('/add-home', (req, res, next) => {
   console.log('Form submitted successfully', req.body);
-  res.sendFile(path.join(__dirname, '../views/homeAdded.html'));
+  res.sendFile(path.join(rootDir, 'views/homeAdded.html'));
 });
 
 module.exports = hostRoute;
