@@ -13,10 +13,12 @@ hostRoute.get('/add-home', (req, res, next) => {
 
 });
    
-
+const homes = [];
 
 hostRoute.post('/add-home', (req, res, next) => {
   console.log('Form submitted successfully', req.body);
+  homes.push({housename: req.body.homeName, location: req.body.location, price: req.body.price});
+  console.log('Current homes:', homes);
   res.sendFile(path.join(rootDir, 'views/homeAdded.html'));
 });
 
