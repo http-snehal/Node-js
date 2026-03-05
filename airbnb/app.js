@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 
 
 app.use(storeRoute);
-app.use("/host", hostRoute);
+app.use( hostRoute);
 
 app.use((req, res, next) => {
   res.status(404).render('error', { pageTitle: 'Page Not Found' });
