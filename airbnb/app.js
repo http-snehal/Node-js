@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const userRoute = require("./routes/userRoute");
+const storeRoute = require("./routes/storeRoute");
 const hostRoute = require("./routes/hostRoute");
 const rootDir = require("./utils/utiils"); 
 
@@ -22,7 +22,7 @@ app.use((req, res, next) => {
 });
 
 
-app.use(userRoute);
+app.use(storeRoute);
 app.use("/host", hostRoute);
 
 app.use((req, res, next) => {

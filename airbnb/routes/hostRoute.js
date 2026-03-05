@@ -1,6 +1,6 @@
 const express = require("express");
 const hostRoute = express.Router();
-const addHomeController = require("../controller/addHome");
+const addHomeController = require("../controller/host-controller");
 
 
 hostRoute.get('/add-home', addHomeController.getAddHome);
